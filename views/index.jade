@@ -10,7 +10,10 @@ block content
     h1 Social Media
 
     h2 Tweets
-    div.row(ng-repeat="tweetObj in tweets")
+
+    input.tweetSearch(type='text' placeholder='Search Tweets' ng-model="searchTweets")
+
+    div.row(ng-repeat="tweetObj in tweets | filter:{'tweet':searchTweets}")
       div.tweet
       span.name {{tweetObj.name}} 
       span.username [{{tweetObj.username}}]: 

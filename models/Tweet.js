@@ -1,7 +1,7 @@
 var Mongoose = require('mongoose');
 
 exports.TweetSchema = new Mongoose.Schema({
-  done : { type : Boolean, required : true },
-  due : { type : Date, required : true },
-  description : { type : String, required : true }
+  name : { type : String, required : true },
+  username : { type : String, required : true },
+  tweet : { type : String, required : true }
 });

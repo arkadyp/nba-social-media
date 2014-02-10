@@ -1,26 +1,19 @@
 extends layout
 
 block head
-  link(rel='stylesheet', href='/javascripts/vendor/bootstrap-css/css/bootstrap.css')
+  link(rel='stylesheet', href='javascripts/vendor/bootstrap-css/css/bootstrap.css')
 
-  script(type='text/javascript', src='/javascripts/controllers/TodoListController.js')
+  script(type='text/javascript', src='javascripts/controller/StreamController.js')
 
 block content
-  div.container(ng-controller="TodoListController", ng-init="setTodos( #{JSON.stringify(todos)} )")
-    h1 My Todo List
-    h2 Upcoming
-    div.row(ng-repeat="todo in todos | filter:notDoneFilter")
-      div.span9
-        label.checkbox
-          input(type="checkbox", ng-model="todo.done")
-          | {{todo.description}}
-      div.span3.text-right
-        i {{todo.due | date:'MMM d, yyyy'}}
-    h2 Done
-    div.row(ng-repeat="todo in todos | filter:doneFilter")
-      div.span9
-        label.checkbox
-          input(type="checkbox", ng-model="todo.done")
-          del {{todo.description}}
-      div.span3.text-right
-        i {{todo.due | date:'MMM d, yyyy'}}
+  div.container(ng-controller="StreamController", ng-init="setTweets( #{JSON.stringify(tweets)} )")
+    h1 Social Media
+
+    h2 Tweets
+    div.row(ng-repeat="tweetObj in tweets")
+      div.tweet
+      span.name {{tweetObj.name}} 
+      span.name [{{tweetObj.username}}]: 
+      span.tweetText {{tweetObj.tweet.text}}
+      //div.span3.text-right
+        //i {{tweet.due | date:'MMM d, yyyy'}}

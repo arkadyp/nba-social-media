@@ -1,18 +1,33 @@
-
-/**
- * Module dependencies.
- */
+///////////////////////
+//Module Dependencies
+///////////////////////
 
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
+var oauth = require('OAuth');
+var _ = require('underscore');
+
+var routes = require('./routes');
+var user = require('./routes/user');
+var tweetFetcher = require('./routes/TweetFetcher');
+
 var app = express();
 
+///////////////////////
+//Set up database
+///////////////////////
+
 var Mongoose = require('mongoose');
-var db = Mongoose.createConnection('localhost', 'mytestapp');
+var db = Mongoose.createConnection('localhost', 't1');
+
+var TweetSchema = require('./models/Tweet.js').TweetSchema;
+var Tweet = db.model('tweets', TweetSchema);
+
+///////////////////////
+//Set up server
+///////////////////////
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -30,9 +45,35 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+///////////////////////
+//Fetch Tweets
+///////////////////////
+
+
+
+///////////////////////
+//Set up routes
+///////////////////////
+
+
+app.get('/', routes.index(Tweet));
 app.get('/users', user.list);
+app.get('/tweets.json', routes.get(Tweet));
+app.put('/tweet/:id.json', routes.update(Tweet));
+app.post('/tweet.json', routes.addTweet(Tweet));
+
+app.get('/twitter', function(req, res){
+  tweetFetcher.getTweets(Tweet);
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+
+
+
+
+
+

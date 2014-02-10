@@ -17,37 +17,63 @@ var screen_names = [];
 ///HEAT SCREEN NAMES
 /////////////////////////////
 screen_names['heat'] = {
-  'kingjames' : 'Lebron James',
-  'DwyaneWade' : 'Dwyane Wade',
-  'chrisbosh' : 'Chris Bosh',
-  'Odenized' : 'Greg Oden',
-  'easyst0‎' : 'Michael Beasley',
-  'chr1sa‎' : 'Chris Anderson',
-  'greenRAYn20' : 'Ray Allen',
-  'mchalmers15‎': 'Mario Chalmers',
-  'PG30_MIA' : 'Norris Cole',
-  'ShaneBattier' : 'Shane Battier',
-  'ThisIsUD‎' : 'Udonis Haslem',
-  'MoneyMase‎' : 'Roger Mason Jr.',
-  'jonesforthree‎' : 'James Jones'
+  'kingjames' : 'Lebron James'
+  // 'DwyaneWade' : 'Dwyane Wade',
+  // 'chrisbosh' : 'Chris Bosh',
+  // 'Odenized' : 'Greg Oden',
+  // 'easyst0‎' : 'Michael Beasley'
+  // 'chr1sa‎' : 'Chris Anderson',
+  // 'greenRAYn20' : 'Ray Allen',
+  // 'mchalmers15‎': 'Mario Chalmers',
+  // 'PG30_MIA' : 'Norris Cole',
+  // 'ShaneBattier' : 'Shane Battier',
+  // 'ThisIsUD‎' : 'Udonis Haslem',
+  // 'MoneyMase‎' : 'Roger Mason Jr.',
+  // 'jonesforthree‎' : 'James Jones'
 };
 
-var params = {
-  screen_name: 'chrisbosh',
-  count: 200,
-  page: 1
-};
+// var params = {
+//   screen_name: 'chrisbosh',
+//   count: 200,
+//   page: 1
+// };
 
 exports.getTweets = function(Tweet, cb){
+  //cycle through 5 names
+  for(var username in screen_names['heat']) {
+    //cycle though page count
+    for(var page = 1; page <= 1; page++) {
+      var params = {
+        screen_name : username,
+        conut : 200,
+        page : page
+      };
+      exports.timelineRequest(Tweet, cb, params, screen_names['heat'][username], username);
+    }
+  }
+}
+
+exports.timelineRequest = function(Tweet, cb, params, name, username){
   twitter.getTimeline('user', params, _twitterAccessToken, _twitterAcessTokenSecret, 
-  function(error, data, res){
+  function(error, data, res) {
+    if(error) {console.log(error)};
     _.each(data, function(tweet){
-      var currentTweet = new Tweet({
-        name: 'Chris Bosh', 
-        username: 'chrisbosh', 
-        tweet: tweet
-      });
-      currentTweet.save();
+      addTweet(name, username, tweet);
     });
   });
 };
+
+var addTweet = function(name, username, tweet){
+  var currentTweet = new Tweet({
+    name: name, 
+    username: username, 
+    tweet: tweet
+  });
+  currentTweet.save();
+}
+
+
+
+
+
+

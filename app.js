@@ -20,7 +20,7 @@ var app = express();
 ///////////////////////
 
 var Mongoose = require('mongoose');
-var db = Mongoose.createConnection('localhost', 't1');
+var db = Mongoose.createConnection('localhost', 'n2');
 
 var TweetSchema = require('./models/Tweet.js').TweetSchema;
 var Tweet = db.model('tweets', TweetSchema);
@@ -64,6 +64,7 @@ app.post('/tweet.json', routes.addTweet(Tweet));
 
 app.get('/twitter', function(req, res){
   tweetFetcher.getTweets(Tweet);
+  res.end('fetching');
 });
 
 http.createServer(app).listen(app.get('port'), function(){

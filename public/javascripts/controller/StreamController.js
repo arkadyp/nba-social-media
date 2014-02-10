@@ -3,12 +3,35 @@ function StreamController($scope, $http, $timeout) {
   
   $scope.setTweets = function(tweets){
     console.log(tweets);
+
+    //calculate total RTs and Favorites
+    var rtTot = 0, fvTot = 0;
+    for(var i = 0; i < tweets.length; i++) {
+      var tweet = JSON.parse(tweets[i].tweet);
+      rtTot += tweet.retweet_count || 0;
+      fvTot += tweet.favorite_count || 0; 
+    }
+
     for(var i = 0; i < tweets.length; i++) {
       tweets[i].tweet = JSON.parse(tweets[i].tweet);
       tweets[i].tweet.text = (tweets[i].tweet.text).replace(/&amp;/g, '&');
       tweets[i].tweet.created_at = new Date(tweets[i].tweet.created_at);
+
+      //TODO: UPDATE ACTUAL DATABASE WITH THIS INFO
+      tweets[i].rtScore = Number((tweets[i].tweet.retweet_count / rtTot * 100).toFixed(2));
+      tweets[i].fvScore = Number((tweets[i].tweet.favorite_count / fvTot * 100).toFixed(2));
+      tweets[i].totScore = (tweets[i].fvScore + tweets[i].rtScore / 2).toFixed(2);
     }
     $scope.tweets = tweets;
+  };
+
+  $scope.displayOptions = {
+    reverse: true,
+    orderBy: 'totScore'
+  };
+
+  $scope.searchText = function(){
+
   }
 
   $scope.update = function(tweet) {

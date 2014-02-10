@@ -13,7 +13,8 @@ block content
     div.row(ng-repeat="tweetObj in tweets")
       div.tweet
       span.name {{tweetObj.name}} 
-      span.name [{{tweetObj.username}}]: 
+      span.username [{{tweetObj.username}}]: 
       span.tweetText {{tweetObj.tweet.text}}
+      span.created_at  | {{tweetObj.tweet.created_at | date: "h:mm:a, MMM d, 'y" }}
       //div.span3.text-right
         //i {{tweet.due | date:'MMM d, yyyy'}}

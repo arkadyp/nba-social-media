@@ -2,8 +2,11 @@ function StreamController($scope, $http, $timeout) {
   $scope.tweets = [];
   
   $scope.setTweets = function(tweets){
+    console.log(tweets);
     for(var i = 0; i < tweets.length; i++) {
       tweets[i].tweet = JSON.parse(tweets[i].tweet);
+      tweets[i].tweet.text = (tweets[i].tweet.text).replace(/&amp;/g, '&');
+      tweets[i].tweet.created_at = new Date(tweets[i].tweet.created_at);
     }
     $scope.tweets = tweets;
   }

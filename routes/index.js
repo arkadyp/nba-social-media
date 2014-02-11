@@ -42,7 +42,6 @@ var stringToDate = {
 exports.getData = function(Tweet, timespan, req, res){
   var timespan = timespan || 'past-month';
   var date = stringToDate[timespan]();
-  console.log(date);
   Tweet.find({created_at : {'$gte' : date}}, function(error, data){
     res.json({data: data});
   });

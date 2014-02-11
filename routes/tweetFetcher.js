@@ -14,9 +14,9 @@ var twitter = new twitterAPI({
 
 var screen_names = [];
 /////////////////////////////
-///HEAT SCREEN NAMES
+///Heat SCREEN NAMES
 /////////////////////////////
-screen_names['heat'] = {
+screen_names['Heat'] = {
   'kingjames' : 'Lebron James',
   'DwyaneWade' : 'Dwyane Wade',
   'chrisbosh' : 'Chris Bosh',
@@ -32,32 +32,49 @@ screen_names['heat'] = {
   // 'jonesforthree‎' : 'James Jones'
 };
 
-exports.getTweets = function(Tweet, cb){
+screen_names['Lakers'] = {
+  'kobebryant' : 'Kobe Bryant',
+  'paugasol‎' : 'Pau Gasol',
+  'NickSwagyPYoung' : 'Nick Young',
+  'SteveNash‎' : 'Steve Nash',
+  'KButter5' : 'Kendall Marshall',
+  'XavierHenry‎' : 'Xavier Henry',
+  'RyanKelly34' : 'Ryan Kelly',
+  'SteveBlake5' : 'Steve Blake',
+  'JrFarmar' : 'Jordan Farmar',
+  'jordanchill43' : 'Jordan Hill',
+  'ChrisKaman' : 'Chris Kaman',
+  'Bobby_Sacre' : 'Robert Sacre',
+  'Jmeeks20' : 'Jodie Meeks'
+};
+
+exports.getTweets = function(Tweet){
   //cycle through names
-  for(var username in screen_names['heat']) {
+  for(var username in screen_names['Lakers']) {
     //cycle though page count
-    for(var page = 1; page <= 5 ; page++) {
+    for(var page = 1; page <= 3 ; page++) {
       var params = {
         screen_name : username,
-        conut : 200,
+        count : 200,
         page : page
       };
-      exports.timelineRequest(Tweet, cb, params, screen_names['heat'][username], username);
+      exports.timelineRequest(Tweet, params, screen_names['Lakers'][username], username, 'Lakers');
     }
   }
 };
 
-exports.timelineRequest = function(Tweet, cb, params, name, username, teamname){
+exports.timelineRequest = function(Tweet, params, name, username, teamname){
   twitter.getTimeline('user', params, _twitterAccessToken, _twitterAcessTokenSecret, 
   function(error, data, res) {
     if(error) {console.log(error)};
     _.each(data, function(tweet){
-      addTweet(Tweet, name, username, tweet, teamname);
+      addTweet(Tweet, name, username, teamname, tweet);
     });
   });
 };
 
 var addTweet = function(Tweet, name, username, teamname, tweet){
+  console.log('save tweet');
   var currentTweet = new Tweet({
     name : name,
     username : username,

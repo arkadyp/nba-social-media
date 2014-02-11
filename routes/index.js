@@ -39,16 +39,18 @@ var stringToDate = {
   },
 }
 
-exports.getTweets = function(Tweet, timespan, req, res){
+exports.getTweets = function(TweetDB, timespan, req, res){
   var timespan = timespan || 'past-month';
   var date = stringToDate[timespan]();
-  Tweet.find({created_at : {'$gte' : date}}, function(error, data){
+  TweetDB.find({created_at : {'$gte' : date}}, function(error, data){
     res.json({data: data});
   });
 }
 
-exports.getInstagrams = function(req, res) {
-  
+exports.getInstagrams = function(InstagramDB, req, res) {
+  InstagramDB.find({}, function(error, data){
+    res.json({data: data});
+  })
 };
 
 // exports.addTweet = function(Tweet) {

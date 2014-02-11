@@ -5,37 +5,57 @@ ig.use({ access_token: '143577447.1fb234f.f9d06f9c8fa54e67bbc642d9ad867d05'});
 
 var users = {
   // '22138451' : ['JR Smith', 'teamswish', 'Knicks'],
-  '19733607' : ['Nick Young', 'swaggyp1', 'Lakers']
+  // '41197961' : ['Metta World Peace', 'theronandmettashow', 'Knicks'],
+  // '260001551' : ['Tyson Chandler', 'tysonchandler', 'Knicks'],
+  '15932476' : ['Iman Shumpert', 'imanshumpertthe1st', 'Knicks']
+  // '24657562' : ["Amar'e Stoudemire", 'amareisreal', 'Knicks'],
+  // '7732613' : ['Carmelo Anthony', 'carmeloanthony', 'Knicks']
 }
 
 var database;
 var callback;
+var counter;
 
 exports.fetchInstagrams = function(InstagramDB, cb){
   database = InstagramDB;
   callback = cb;
   for(var id in users) {
+    counter = 4;
     instragramRequest(id, users[id][0], users[id][1], users[id][2]);
   }
 }
 
-var instragramRequest = function(id, name, username, team) {
-  ig.user_media_recent(id, {count: 20},function(err, medias, pagination, limit) {
-    console.log(pagination);
+// 636466024513299368_19733607
+
+var instragramRequest = function(id, name, username, team, max_id) {
+  max_id = max_id || "";
+  ig.user_media_recent(id, {count: 20, max_id: max_id}, function(err, medias, pagination, limit) {
+    var next_max_id = pagination.next_max_id;
+    
+    if(next_max_id) {
+      next_max_id = next_max_id.slice(0, next_max_id.indexOf('_'));  
+    }
+
     var data = [];
+    var urls = [];
     _.each(medias, function(media){
       data.push(media);
+      urls.push(media.images.standard_resolution.url);
       addInstragramToDB(name, username, team, media)
     });
-    callback(data);
+
+    //grab last 4 pages for each username
+    if(counter >= 0) {
+      counter--;
+      console.log('Call #',counter, ' MAXID: ',next_max_id);
+      instragramRequest(id, name, username, team, next_max_id);
+    } else {
+      callback(urls);
+    }
   });
 }
 
-var counter = 0;
-
 var addInstragramToDB = function(name, username, teamname, instagram){
-  console.log(counter +' save instragram');
-  counter++;
   var currentInstagram = new database({
     name : name,
     username : username,

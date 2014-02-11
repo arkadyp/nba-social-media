@@ -4,6 +4,8 @@ block head
   link(rel='stylesheet', href='/stylesheets/style.css')
   script(src='javascripts/controller/TweetStreamController.js')
   script(src='javascripts/controller/InstagramStreamController.js')
+  script(src='http://code.jquery.com/jquery-1.11.0.min.js')
+  script(src='/utilities/imagepreview.js')
 
 block content
   div.container
@@ -56,16 +58,16 @@ block content
 
       input.instagramSearch(type='text' placeholder='Search Instagrams' ng-model="searchInstagram")
       
-      //form.tweetFilter
-        //input.tweetFilter(type='radio' name='tweetFilter' value='totScore' checked ng-click='displayOptions.orderBy = "totScore"')
-        //|   Combined Score
+      form.tweetFilter
+        input.tweetFilter(type='radio' name='tweetFilter' value='totScore' checked ng-click='displayOptions.orderBy = "popScore"')
+        |   'Likes' Score
         //input.tweetFilter(type='radio' name='tweetFilter' value='rtScore' ng-click='displayOptions.orderBy = "rtScore"')
         //|   Retweet Score 
         //input.tweetFilter(type='radio' name='tweetFilter' value='fvScore' ng-click='displayOptions.orderBy = "fvScore"')
         //|   Favored Score 
 
       ol.instagramContainer
-        li(ng-repeat="instagramObj in instagrams | filter : {'text' : searchInstagram}")
+        li(ng-repeat="instagramObj in instagrams | orderBy : displayOptions.orderBy: displayOptions.reverse | filter : {'text' : searchInstagram}")
           div.instagram(style="border-top:1px solid black")
             div.names
               span.name {{instagramObj.name}} 

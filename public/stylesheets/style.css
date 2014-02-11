@@ -95,3 +95,16 @@ div.instaText, div.instaScore {
 div.instaScore {
   padding-top: 15px;
 }
+
+/*  */
+
+#preview{
+  position:absolute;
+  border:1px solid #ccc;
+  background:#333;
+  padding:5px;
+  display:none;
+  color:#fff;
+  }
+
+/*  */

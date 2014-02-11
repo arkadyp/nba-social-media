@@ -30,7 +30,6 @@ ol.tweetContainer {
 }
 
 ol.instagramContainer {
-  background-color: blue;
   max-height: 750px;
   overflow: scroll;
 }

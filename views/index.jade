@@ -2,10 +2,10 @@ extends layout
 
 block head
   link(rel='stylesheet', href='/stylesheets/style.css')
-  script(src='javascripts/controller/StreamController.js')
+  script(src='javascripts/controller/TweetStreamController.js')
 
 block content
-  div.container(ng-controller="StreamController", ng-init="setTweets()")
+  div.container(ng-controller="TweetStreamController", ng-init="setTweets()")
     h1 NBA Team Twitter/Instagram
 
     div.Tweets

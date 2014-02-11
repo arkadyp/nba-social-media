@@ -21,10 +21,14 @@ var app = express();
 ///////////////////////
 
 var Mongoose = require('mongoose');
-var db = Mongoose.createConnection('localhost', 'nbaTestData');
 
-var TweetSchema = require('./models/Tweet.js').TweetSchema;
+var db = Mongoose.createConnection('localhost', 'nbaTestData');
+var TweetSchema = require('./models/Tweet').TweetSchema;
 var Tweet = db.model('tweets', TweetSchema);
+
+var db = Mongoose.createConnection('localhost', 'nbaTestData');
+var InstagramSchema = require('./models/Instagram').InstagramSchema;
+var InstagramDB = db.model('instagram', InstagramSchema);
 
 ///////////////////////
 //Set up server
@@ -69,9 +73,8 @@ app.get('/tweets/:time.json', function(req, res){
 });
 
 app.get('/instagram', function(req, res){
-  instaFetcher.fetchInstagrams(Tweet, function(data) {
-    console.log('wtf')
-    res.end('done');
+  instaFetcher.fetchInstagrams(InstagramDB, function(data) {
+    res.json({data: data});
   });
 });
 

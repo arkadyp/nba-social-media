@@ -52,7 +52,7 @@ exports.getTweets = function(Tweet){
   //cycle through names
   for(var username in screen_names['Lakers']) {
     //cycle though page count
-    for(var page = 1; page <= 3 ; page++) {
+    for(var page = 7; page <= 7 ; page++) {
       var params = {
         screen_name : username,
         count : 200,

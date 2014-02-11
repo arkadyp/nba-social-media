@@ -19,17 +19,12 @@ div.Instagrams {
   padding: 25px;
 }
 
-ol.tweetContainer {
+ol.tweetContainer, ol.instagramContainer {
   list-style-position: inside;
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px;
-  width: 100%;
-  max-height: 750px;
-  overflow: scroll;
-}
-
-ol.instagramContainer {
+  width: 100%; 
   max-height: 750px;
   overflow: scroll;
 }
@@ -76,10 +71,22 @@ h1 {
   text-align: center;
 }
 
+.instaConent {
+  height: 300px;
+}
+
 div.pic {
   border: 1px;
   height: 300px;
   width: 50%;
   background-size: 100%;
+  background-repeat: no-repeat;
+  background-overflow: hidden;
+  float: left;
 }
 
+div.instaText {
+  width: 45%;
+  float: right;
+  padding-left: 5px;
+}

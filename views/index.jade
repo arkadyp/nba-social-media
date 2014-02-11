@@ -56,12 +56,16 @@ block content
 
       ol.instagramContainer
         li(ng-repeat="instagramObj in instagrams") 
-          div.names
-            span.name {{instagramObj.name}} 
-            span.username [@{{instagramObj.username}}]
-          div.pic(ng-style="{'background-image':'url('+instagramObj.url+')'}")
-          div.score
+          div.instagram(style="border-top:1px solid black")
+            div.names
+              span.name {{instagramObj.name}} 
+              span.username [@{{instagramObj.username}}]
               span.created_at {{instagramObj.created_at | date: "h:mm:a, MMM d, 'y" }}
+            div.instaConent
+              div.pic(ng-style="{'background-image':'url('+instagramObj.url+')'}")
+              div.instaText {{instagramObj.text}}
+            div.score
+              
             
           
           

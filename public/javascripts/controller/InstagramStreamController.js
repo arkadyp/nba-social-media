@@ -10,10 +10,12 @@ function InstagramStreamController($scope, $http, $timeout) {
         var instagram = JSON.parse(instagrams[i].instagram);
         instagrams[i].instagram = instagram;
         instagrams[i].url = instagram.images.low_resolution.url;
+        instagrams[i].text = (instagram.caption) ? instagram.caption.text : "";
         instagrams[i].created_at = new Date(instagrams[i].created_at);
       }
       
       $scope.instagrams = instagrams;
+      console.log(instagrams);
     });
   };
 }

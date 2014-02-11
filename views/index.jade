@@ -8,43 +8,56 @@ block content
   div.container(ng-controller="StreamController", ng-init="setTweets()")
     h1 NBA Team Twitter/Instagram
 
-    h2 Tweets
+    div.Tweets
+      h2 Tweets
 
-    input.tweetSearch(type='text' placeholder='Search Tweets' ng-model="searchTweets")
-    form.tweetFilter
-      input.tweetFilter(type='radio' name='tweetFilter' value='totScore' checked ng-click='displayOptions.orderBy = "totScore"')
-      |   Combined Score
-      input.tweetFilter(type='radio' name='tweetFilter' value='rtScore' ng-click='displayOptions.orderBy = "rtScore"')
-      |   Retweet Score 
-      input.tweetFilter(type='radio' name='tweetFilter' value='fvScore' ng-click='displayOptions.orderBy = "fvScore"')
-      |   Favored Score 
+      input.tweetSearch(type='text' placeholder='Search Tweets' ng-model="searchTweets")
+      form.tweetFilter
+        input.tweetFilter(type='radio' name='tweetFilter' value='totScore' checked ng-click='displayOptions.orderBy = "totScore"')
+        |   Combined Score
+        input.tweetFilter(type='radio' name='tweetFilter' value='rtScore' ng-click='displayOptions.orderBy = "rtScore"')
+        |   Retweet Score 
+        input.tweetFilter(type='radio' name='tweetFilter' value='fvScore' ng-click='displayOptions.orderBy = "fvScore"')
+        |   Favored Score 
 
-    button.reverseFilter(ng-click='displayOptions.reverse = !displayOptions.reverse') Reverse
+      button.reverseFilter(ng-click='displayOptions.reverse = !displayOptions.reverse') Reverse
 
-    br
-    | Time Filter
-    select.timeFilter(ng-model='timespan')
-      option(value='past-week') past week
-      option(value='past-month' selected) past month
-      option(value='past-3-months' selected) past 3 months
-      option(value='past-6-months' selected) past 6 months
-      option(value='past-year' selected) past year
+      br
+      | Time Filter
+      select.timeFilter(ng-model='timespan')
+        option(value='past-week') past week
+        option(value='past-month' selected) past month
+        option(value='past-3-months' selected) past 3 months
+        option(value='past-6-months' selected) past 6 months
+        option(value='past-year' selected) past year
+        
+
+      br
+      br
+
+      //make a custom filter function that only searches in text
+      ol.tweetContainer
+        li(ng-repeat="tweetObj in tweets | orderBy : displayOptions.orderBy : displayOptions.reverse | filter : {'tweet' : searchTweets}")
+          div.tweet(style="border-top:1px solid black")
+            div.names
+              span.name {{tweetObj.name}} 
+              span.username [@{{tweetObj.username}}]: 
+            div.text
+              span.tweetText {{tweetObj.tweet.text}}
+            div.score
+              span.rtScore [RT: {{tweetObj.rtScore}}]
+              span.fvScore [FV: {{tweetObj.fvScore}}]
+              span.fvScore [TOT: {{tweetObj.totScore}}]
+              span.created_at {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}
+
+    div.Instagrams
+      h2 Instagram
+      button a1
+      button a2
+      button a3
+
+      ol.instagramContainer
+        li.temp test
+        
       
 
-    br
-    br
-
-    //make a custom filter function that only searches in text
-    ol.tweetContainer
-      li(ng-repeat="tweetObj in tweets | orderBy : displayOptions.orderBy : displayOptions.reverse | filter : {'tweet' : searchTweets}")
-        div.tweet(style="border-top:1px solid black")
-          div.names
-            span.name {{tweetObj.name}} 
-            span.username [@{{tweetObj.username}}]: 
-          div.text
-            span.tweetText {{tweetObj.tweet.text}}
-          div.score
-            span.rtScore [RT: {{tweetObj.rtScore}}]
-            span.fvScore [FV: {{tweetObj.fvScore}}]
-            span.fvScore [TOT: {{tweetObj.totScore}}]
-            span.created_at {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}

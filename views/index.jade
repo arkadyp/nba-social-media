@@ -3,12 +3,13 @@ extends layout
 block head
   link(rel='stylesheet', href='/stylesheets/style.css')
   script(src='javascripts/controller/TweetStreamController.js')
+  script(src='javascripts/controller/InstagramStreamController.js')
 
 block content
-  div.container(ng-controller="TweetStreamController", ng-init="setTweets()")
+  div.container
     h1 NBA Team Twitter/Instagram
 
-    div.Tweets
+    div.Tweets(ng-controller="TweetStreamController", ng-init="setTweets()")
       h2 Tweets
 
       input.tweetSearch(type='text' placeholder='Search Tweets' ng-model="searchTweets")
@@ -50,14 +51,14 @@ block content
               span.fvScore [TOT: {{tweetObj.totScore}}]
               span.created_at {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}
 
-    div.Instagrams
+    div.Instagrams(ng-controller="InstagramStreamController", ng-init="setInstagrams()")
       h2 Instagram
-      button a1
-      button a2
-      button a3
 
       ol.instagramContainer
-        li.temp test
+        li(ng-repeat="instagramObj in instagrams") {{instagramObj}}
+
+        
+          
         
       
 

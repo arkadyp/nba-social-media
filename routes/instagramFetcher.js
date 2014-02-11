@@ -2,7 +2,7 @@ var oauth = require('OAuth');
 var ig = require('instagram-node').instagram();
 ig.use({ access_token: '143577447.1fb234f.f9d06f9c8fa54e67bbc642d9ad867d05'});  
 
-app.get('/insta', function(req, res){
+var getInstagrams = function(){
   ig.user_media_recent('22138451', {count: 20},function(err, medias, pagination, limit) {
     console.log(pagination);
     var image_url = [];
@@ -10,5 +10,5 @@ app.get('/insta', function(req, res){
       image_url.push(media.images.standard_resolution.url);
     });
     res.send(image_url);
-  });  
-});
+  });
+}

@@ -60,9 +60,12 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index());
 
 app.get('/tweets/:time.json', function(req, res){
-  routes.getData(Tweet, req.params['time'], req, res);
+  routes.getTweets(Tweet, req.params['time'], req, res);
 });
 
+app.get('/instagram', function(req, res){
+  routes.getInstagrams(req, res);
+});
 
 //   function(req, res){
 //   console.log(req.params['time']);

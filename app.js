@@ -12,6 +12,7 @@ var _ = require('underscore');
 var routes = require('./routes');
 var user = require('./routes/user');
 var tweetFetcher = require('./routes/TweetFetcher');
+var instaFetcher = require('./routes/InstagramFetcher');
 
 var app = express();
 

@@ -12,6 +12,7 @@
     "mongoose" : ">=3.6",
     "Oauth" : "0.9.11",
     "node-twitter-api" : "1.1.3",
-    "underscore" : "1.5.2"
+    "underscore" : "1.5.2",
+    "instagram-node" : "0.1.14"
   }
 }

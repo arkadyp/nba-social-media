@@ -20,7 +20,7 @@ var app = express();
 ///////////////////////
 
 var Mongoose = require('mongoose');
-var db = Mongoose.createConnection('localhost', 'a1');
+var db = Mongoose.createConnection('localhost', 'nbaTestData');
 
 var TweetSchema = require('./models/Tweet.js').TweetSchema;
 var Tweet = db.model('tweets', TweetSchema);

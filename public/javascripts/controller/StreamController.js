@@ -2,14 +2,19 @@ function StreamController($scope, $http, $timeout) {
   $scope.tweets = [];
   
   $scope.setTweets = function(tweets){
-    console.log(tweets);
-
-    //calculate total RTs and Favorites
-    var rtTot = 0, fvTot = 0;
+    //calculate stats separately for each username
+    //TODO: optimize for speed
+    var tweetsByUser = {};
     for(var i = 0; i < tweets.length; i++) {
+      var username = tweets[i].username;
       var tweet = JSON.parse(tweets[i].tweet);
-      rtTot += tweet.retweet_count || 0;
-      fvTot += tweet.favorite_count || 0; 
+      if(!(username in tweetsByUser)) {
+        tweetsByUser[username] = {};
+        tweetsByUser[username].rtTot = 0;
+        tweetsByUser[username].fvTot = 0;
+      }
+      tweetsByUser[username].rtTot += tweet.retweet_count || 0;
+      tweetsByUser[username].fvTot += tweet.favorite_count || 0; 
     }
 
     for(var i = 0; i < tweets.length; i++) {
@@ -18,8 +23,8 @@ function StreamController($scope, $http, $timeout) {
       tweets[i].tweet.created_at = new Date(tweets[i].tweet.created_at);
 
       //TODO: UPDATE ACTUAL DATABASE WITH THIS INFO
-      tweets[i].rtScore = Number((tweets[i].tweet.retweet_count / rtTot * 100).toFixed(2));
-      tweets[i].fvScore = Number((tweets[i].tweet.favorite_count / fvTot * 100).toFixed(2));
+      tweets[i].rtScore = Number((tweets[i].tweet.retweet_count / tweetsByUser[tweets[i].username].rtTot * 100).toFixed(2));
+      tweets[i].fvScore = Number((tweets[i].tweet.favorite_count / tweetsByUser[tweets[i].username].fvTot * 100).toFixed(2));
       tweets[i].totScore = (tweets[i].fvScore + tweets[i].rtScore / 2).toFixed(2);
     }
     $scope.tweets = tweets;

@@ -1,10 +1,22 @@
 function StreamController($scope, $http, $timeout) {
   $scope.tweets = [];
-  
+  $scope.hashtags = {'hash' : 'hash'};
+  $scope.user_mentions = {'user' : 'user'};
+
+  var updateEntities = function(type, field, content){
+    for(var i = 0; i < content.length; i++) {
+      if(!(content[i][field] in $scope[type])) {
+        $scope[type][content[i][field]] = 0;
+      }
+      $scope[type][content[i][field]]++;
+    }
+  };
+
   $scope.setTweets = function(tweets){
     //calculate stats separately for each username
     //TODO: optimize for speed
     var tweetsByUser = {};
+    var hashTags = {};
     for(var i = 0; i < tweets.length; i++) {
       var username = tweets[i].username;
       var tweet = JSON.parse(tweets[i].tweet);
@@ -15,6 +27,14 @@ function StreamController($scope, $http, $timeout) {
       }
       tweetsByUser[username].rtTot += tweet.retweet_count || 0;
       tweetsByUser[username].fvTot += tweet.favorite_count || 0; 
+
+      //record hashtags
+      if(tweet.entities.hashtags.length > 0) {
+        updateEntities('hashtags', 'text', tweet.entities.hashtags);
+      }
+      if(tweet.entities.user_mentions.length > 0) {
+        updateEntities('user_mentions', 'name', tweet.entities.user_mentions);
+      }
     }
 
     for(var i = 0; i < tweets.length; i++) {
@@ -27,6 +47,8 @@ function StreamController($scope, $http, $timeout) {
       tweets[i].fvScore = Number((tweets[i].tweet.favorite_count / tweetsByUser[tweets[i].username].fvTot * 100).toFixed(2));
       tweets[i].totScore = (tweets[i].fvScore + tweets[i].rtScore / 2).toFixed(2);
     }
+    console.log($scope.hashtags);
+    console.log($scope.user_mentions);
     $scope.tweets = tweets;
   };
 

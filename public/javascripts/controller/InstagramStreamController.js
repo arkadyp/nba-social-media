@@ -25,7 +25,7 @@ function InstagramStreamController($scope, $http, $timeout) {
         instagrams[i].url = instagram.images.low_resolution.url;
         instagrams[i].text = (instagram.caption) ? instagram.caption.text : "";
         instagrams[i].created_at = new Date(instagrams[i].created_at);
-        instagrams[i].likedScore = (instagram.likes.count / instagramsByUser[instagrams[i].username].liked).toFixed(2);
+        instagrams[i].likedScore = (instagram.likes.count / instagramsByUser[instagrams[i].username].liked  * 100).toFixed(2);
       }
       
       $scope.instagrams = instagrams;

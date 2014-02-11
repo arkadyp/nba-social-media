@@ -30,6 +30,7 @@ function StreamController($scope, $http, $timeout) {
       //TODO: optimize for speed
       var tweetsByUser = {};
       var hashTags = {};
+      var followers = {};
       for(var i = 0; i < tweets.length; i++) {
         var username = tweets[i].username;
         var tweet = JSON.parse(tweets[i].tweet);
@@ -37,6 +38,7 @@ function StreamController($scope, $http, $timeout) {
           tweetsByUser[username] = {};
           tweetsByUser[username].rtTot = 0;
           tweetsByUser[username].fvTot = 0;
+          followers[username] = tweet.user.followers_count;
         }
         tweetsByUser[username].rtTot += tweet.retweet_count || 0;
         tweetsByUser[username].fvTot += tweet.favorite_count || 0; 
@@ -50,6 +52,13 @@ function StreamController($scope, $http, $timeout) {
         }
       }
 
+      //calculate total followers
+      var totalFollowers = 0;
+      for(var user in followers) {
+        totalFollowers += followers[user];
+      }
+      console.log(totalFollowers);
+
       for(var i = 0; i < tweets.length; i++) {
         tweets[i].tweet = JSON.parse(tweets[i].tweet);
         tweets[i].tweet.text = (tweets[i].tweet.text).replace(/&amp;/g, '&');
@@ -58,10 +67,10 @@ function StreamController($scope, $http, $timeout) {
         //TODO: UPDATE ACTUAL DATABASE WITH THIS INFO
         tweets[i].rtScore = Number((tweets[i].tweet.retweet_count / tweetsByUser[tweets[i].username].rtTot * 100).toFixed(2));
         tweets[i].fvScore = Number((tweets[i].tweet.favorite_count / tweetsByUser[tweets[i].username].fvTot * 100).toFixed(2));
-        tweets[i].totScore = (tweets[i].fvScore + tweets[i].rtScore / 2).toFixed(2);
+        var temp = (tweets[i].fvScore + tweets[i].rtScore / 2);
+        tweets[i].totScore = (temp * followers[tweets[i].username]/totalFollowers).toFixed(2);
       }
-      console.log($scope.hashtags);
-      console.log($scope.user_mentions);
+
       $scope.tweets = tweets;
     });
   };

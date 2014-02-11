@@ -1,12 +1,12 @@
 extends layout
 
 block head
-  link(rel='stylesheet', href='javascripts/vendor/bootstrap-css/css/bootstrap.css')
+  link(rel='stylesheet', href='/stylesheets/style.css')
   script(src='javascripts/controller/StreamController.js')
 
 block content
   div.container(ng-controller="StreamController", ng-init="setTweets()")
-    h1 Social Media
+    h1 NBA Team Twitter/Instagram
 
     h2 Tweets
 
@@ -35,15 +35,16 @@ block content
     br
 
     //make a custom filter function that only searches in text
-    ol
-      li.row(ng-repeat="tweetObj in tweets | orderBy : displayOptions.orderBy : displayOptions.reverse | filter : {'tweet' : searchTweets}")
-        div.tweet
+    ol.tweetContainer
+      li(ng-repeat="tweetObj in tweets | orderBy : displayOptions.orderBy : displayOptions.reverse | filter : {'tweet' : searchTweets}")
+        div.tweet(style="border-top:1px solid black")
+          div.names
             span.name {{tweetObj.name}} 
-            span.username [{{tweetObj.username}}]: 
+            span.username [@{{tweetObj.username}}]: 
+          div.text
             span.tweetText {{tweetObj.tweet.text}}
-            span.created_at  | {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}
+          div.score
             span.rtScore [RT: {{tweetObj.rtScore}}]
             span.fvScore [FV: {{tweetObj.fvScore}}]
             span.fvScore [TOT: {{tweetObj.totScore}}]
-      //div.span3.text-right
-        //i {{tweet.due | date:'MMM d, yyyy'}}
+            span.created_at {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}

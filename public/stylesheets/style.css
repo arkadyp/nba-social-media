@@ -1,8 +1,46 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+ol.tweetContainer {
+  list-style-position: inside;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  width: 500px;
+}
+
+li.ng-scope {
+  margin: 2px;
+  border-bottom: 1px;
+}
+
+.tweet {
+  border: 6px;
+  margin: 8px;
+  font-size: 10px;
+}
+
+.tweet:hover {
+  background: rgb(230, 243, 232);
+}
+
+.name {
+  font-size: 20px;
+  font-style: bold;
+  text-shadow: 1px 1px #001111;
+}
+
+.username {
+  font-size: 14px;
+}
+.tweetText {
+  font-family: arial;
+  font-size: 12px;
+  border: 0px 1px 0px 1px;
+}
+
+.created_at {
+  float: right;
 }

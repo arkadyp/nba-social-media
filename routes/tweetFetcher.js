@@ -17,8 +17,8 @@ var screen_names = [];
 ///HEAT SCREEN NAMES
 /////////////////////////////
 screen_names['heat'] = {
-  'kingjames' : 'Lebron James'
-  // 'DwyaneWade' : 'Dwyane Wade',
+  'kingjames' : 'Lebron James',
+  'DwyaneWade' : 'Dwyane Wade'
   // 'chrisbosh' : 'Chris Bosh',
   // 'Odenized' : 'Greg Oden',
   // 'easyst0‎' : 'Michael Beasley'
@@ -39,10 +39,10 @@ screen_names['heat'] = {
 // };
 
 exports.getTweets = function(Tweet, cb){
-  //cycle through 5 names
+  //cycle through names
   for(var username in screen_names['heat']) {
     //cycle though page count
-    for(var page = 1; page <= 1; page++) {
+    for(var page = 1; page <= 5; page++) {
       var params = {
         screen_name : username,
         conut : 200,
@@ -58,19 +58,19 @@ exports.timelineRequest = function(Tweet, cb, params, name, username){
   function(error, data, res) {
     if(error) {console.log(error)};
     _.each(data, function(tweet){
-      addTweet(name, username, tweet);
+      addTweet(Tweet, name, username, tweet);
     });
   });
 };
 
-var addTweet = function(name, username, tweet){
+var addTweet = function(Tweet, name, username, tweet){
   var currentTweet = new Tweet({
     name: name, 
     username: username, 
-    tweet: tweet
+    tweet: JSON.stringify(tweet)
   });
   currentTweet.save();
-}
+};
 
 
 

@@ -59,13 +59,29 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index());
 
+app.get('/twitter', function(req, res){
+  tweetFetcher.getTweets(Tweet);
+  res.end('fetching');
+});
+
 app.get('/tweets/:time.json', function(req, res){
   routes.getTweets(Tweet, req.params['time'], req, res);
 });
 
 app.get('/instagram', function(req, res){
+  instaFetcher.fetchInstagrams(Tweet, function(data) {
+    console.log('wtf')
+    res.end('done');
+  });
+});
+
+app.get('/instagrams/get', function(req, res){
   routes.getInstagrams(req, res);
 });
+
+
+
+
 
 //   function(req, res){
 //   console.log(req.params['time']);
@@ -83,10 +99,7 @@ app.get('/instagram', function(req, res){
 // app.put('/tweet/:id.json', routes.update(Tweet));
 // app.post('/tweet.json', routes.addTweet(Tweet));
 
-app.get('/twitter', function(req, res){
-  tweetFetcher.getTweets(Tweet);
-  res.end('fetching');
-});
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

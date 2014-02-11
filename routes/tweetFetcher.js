@@ -18,10 +18,10 @@ var screen_names = [];
 /////////////////////////////
 screen_names['heat'] = {
   'kingjames' : 'Lebron James',
-  'DwyaneWade' : 'Dwyane Wade'
-  // 'chrisbosh' : 'Chris Bosh',
-  // 'Odenized' : 'Greg Oden',
-  // 'easyst0‎' : 'Michael Beasley'
+  'DwyaneWade' : 'Dwyane Wade',
+  'chrisbosh' : 'Chris Bosh',
+  'Odenized' : 'Greg Oden',
+  'easyst0' : 'Michael Beasley'
   // 'chr1sa‎' : 'Chris Anderson',
   // 'greenRAYn20' : 'Ray Allen',
   // 'mchalmers15‎': 'Mario Chalmers',
@@ -32,17 +32,11 @@ screen_names['heat'] = {
   // 'jonesforthree‎' : 'James Jones'
 };
 
-// var params = {
-//   screen_name: 'chrisbosh',
-//   count: 200,
-//   page: 1
-// };
-
 exports.getTweets = function(Tweet, cb){
   //cycle through names
   for(var username in screen_names['heat']) {
     //cycle though page count
-    for(var page = 1; page <= 5; page++) {
+    for(var page = 1; page <= 5 ; page++) {
       var params = {
         screen_name : username,
         conut : 200,
@@ -51,29 +45,25 @@ exports.getTweets = function(Tweet, cb){
       exports.timelineRequest(Tweet, cb, params, screen_names['heat'][username], username);
     }
   }
-}
+};
 
-exports.timelineRequest = function(Tweet, cb, params, name, username){
+exports.timelineRequest = function(Tweet, cb, params, name, username, teamname){
   twitter.getTimeline('user', params, _twitterAccessToken, _twitterAcessTokenSecret, 
   function(error, data, res) {
     if(error) {console.log(error)};
     _.each(data, function(tweet){
-      addTweet(Tweet, name, username, tweet);
+      addTweet(Tweet, name, username, tweet, teamname);
     });
   });
 };
 
-var addTweet = function(Tweet, name, username, tweet){
+var addTweet = function(Tweet, name, username, teamname, tweet){
   var currentTweet = new Tweet({
-    name: name, 
-    username: username, 
-    tweet: JSON.stringify(tweet)
+    name : name,
+    username : username,
+    team: teamname,
+    tweet : JSON.stringify(tweet),
+    created_at : new Date(tweet.created_at)
   });
   currentTweet.save();
 };
-
-
-
-
-
-

@@ -16,7 +16,7 @@ var tweetFetcher = require('./routes/TweetFetcher');
 var app = express();
 
 ///////////////////////
-//Set up database
+//Initialize database connection
 ///////////////////////
 
 var Mongoose = require('mongoose');
@@ -56,11 +56,28 @@ if ('development' == app.get('env')) {
 ///////////////////////
 
 
-app.get('/', routes.index(Tweet));
-app.get('/users', user.list);
-app.get('/tweets.json', routes.get(Tweet));
-app.put('/tweet/:id.json', routes.update(Tweet));
-app.post('/tweet.json', routes.addTweet(Tweet));
+app.get('/', routes.index());
+
+app.get('/tweets/:time.json', function(req, res){
+  routes.getData(Tweet, req.params['time'], req, res);
+});
+
+
+//   function(req, res){
+//   console.log(req.params['time']);
+//   res.end('shit');
+// });
+
+
+
+
+
+
+
+// app.get('/users', user.list);
+// app.get('/tweets.json', routes.get(Tweet));
+// app.put('/tweet/:id.json', routes.update(Tweet));
+// app.post('/tweet.json', routes.addTweet(Tweet));
 
 app.get('/twitter', function(req, res){
   tweetFetcher.getTweets(Tweet);

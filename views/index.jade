@@ -2,11 +2,10 @@ extends layout
 
 block head
   link(rel='stylesheet', href='javascripts/vendor/bootstrap-css/css/bootstrap.css')
-
-  script(type='text/javascript', src='javascripts/controller/StreamController.js')
+  script(src='javascripts/controller/StreamController.js')
 
 block content
-  div.container(ng-controller="StreamController", ng-init="setTweets( #{JSON.stringify(tweets)} )")
+  div.container(ng-controller="StreamController", ng-init="setTweets()")
     h1 Social Media
 
     h2 Tweets
@@ -20,7 +19,15 @@ block content
       input.tweetFilter(type='radio' name='tweetFilter' value='fvScore' ng-click='displayOptions.orderBy = "fvScore"')
       |   Favored Score 
 
-    button.reverseFilter(ng-click='displayOptions.reverse = !displayOptions.reverse; console.log("hello");') Reverse
+    button.reverseFilter(ng-click='displayOptions.reverse = !displayOptions.reverse') Reverse
+
+    br
+    | Time Filter
+    select.timeFilter
+      option(value='past week') past week
+      option(value='past month' selected) past month
+      //option(value='past 3 months') past 3 months
+      //option(value='past 6 monthsx') past 6 months
 
     br
     br
@@ -31,7 +38,7 @@ block content
       span.name {{tweetObj.name}} 
       span.username [{{tweetObj.username}}]: 
       span.tweetText {{tweetObj.tweet.text}}
-      span.created_at  | {{tweetObj.tweet.created_at | date: "h:mm:a, MMM d, 'y" }}
+      span.created_at  | {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}
       span.rtScore [RT: {{tweetObj.rtScore}}]
       span.fvScore [FV: {{tweetObj.fvScore}}]
       span.fvScore [TOT: {{tweetObj.totScore}}]

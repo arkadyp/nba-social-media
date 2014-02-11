@@ -28,7 +28,7 @@ var Tweet = db.model('tweets', TweetSchema);
 
 var db = Mongoose.createConnection('localhost', 'nbaTestData');
 var InstagramSchema = require('./models/Instagram').InstagramSchema;
-var InstagramDB = db.model('instagram', InstagramSchema);
+var InstagramDB = db.model('instagram2', InstagramSchema);
 
 ///////////////////////
 //Set up server

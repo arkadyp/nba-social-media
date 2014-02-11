@@ -4,12 +4,12 @@ var ig = require('instagram-node').instagram();
 ig.use({ access_token: '143577447.1fb234f.f9d06f9c8fa54e67bbc642d9ad867d05'});  
 
 var users = {
-  // '22138451' : ['JR Smith', 'teamswish', 'Knicks'],
-  // '41197961' : ['Metta World Peace', 'theronandmettashow', 'Knicks'],
-  // '260001551' : ['Tyson Chandler', 'tysonchandler', 'Knicks'],
-  '15932476' : ['Iman Shumpert', 'imanshumpertthe1st', 'Knicks']
-  // '24657562' : ["Amar'e Stoudemire", 'amareisreal', 'Knicks'],
-  // '7732613' : ['Carmelo Anthony', 'carmeloanthony', 'Knicks']
+  '22138451' : ['JR Smith', 'teamswish', 'Knicks'],
+  '41197961' : ['Metta World Peace', 'theronandmettashow', 'Knicks'],
+  '260001551' : ['Tyson Chandler', 'tysonchandler', 'Knicks'],
+  '15932476' : ['Iman Shumpert', 'imanshumpertthe1st', 'Knicks'],
+  '24657562' : ["Amar'e Stoudemire", 'amareisreal', 'Knicks'],
+  '7732613' : ['Carmelo Anthony', 'carmeloanthony', 'Knicks']
 }
 
 var database;

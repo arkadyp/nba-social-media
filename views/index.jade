@@ -42,7 +42,7 @@ block content
           div.tweet(style="border-top:1px solid black")
             div.names
               span.name {{tweetObj.name}} 
-              span.username [@{{tweetObj.username}}]: 
+              span.username [@{{tweetObj.username}}] 
             div.text
               span.tweetText {{tweetObj.tweet.text}}
             div.score
@@ -56,8 +56,14 @@ block content
 
       ol.instagramContainer
         li(ng-repeat="instagramObj in instagrams") 
-          div.pic(ng-style="{'background-image':'url('+instagramObj+')'}") {{instagramObj}}
-          //div.pic(ng-style="{'background-image':'url(http://distilleryimage5.s3.amazonaws.com/3bda34528e1311e3af8f0a64691e8e35_8.jpg)'}") {{instagramObj}}
+          div.names
+            span.name {{instagramObj.name}} 
+            span.username [@{{instagramObj.username}}]
+          div.pic(ng-style="{'background-image':'url('+instagramObj.url+')'}")
+          div.score
+              span.created_at {{instagramObj.created_at | date: "h:mm:a, MMM d, 'y" }}
+            
+          
           
 
         

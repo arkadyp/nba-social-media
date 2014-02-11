@@ -8,12 +8,12 @@ function InstagramStreamController($scope, $http, $timeout) {
 
       for(var i = 0; i < instagrams.length; i++) {
         var instagram = JSON.parse(instagrams[i].instagram);
-        if($scope.instagrams.indexOf(instagram.images.standard_resolution.url) === -1) {
-          $scope.instagrams.push(instagram.images.standard_resolution.url);
-        }
+        instagrams[i].instagram = instagram;
+        instagrams[i].url = instagram.images.low_resolution.url;
+        instagrams[i].created_at = new Date(instagrams[i].created_at);
       }
-    })
+      
+      $scope.instagrams = instagrams;
+    });
   };
-
-
 }

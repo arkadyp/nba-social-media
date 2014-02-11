@@ -23,24 +23,27 @@ block content
 
     br
     | Time Filter
-    select.timeFilter
-      option(value='past week') past week
-      option(value='past month' selected) past month
-      //option(value='past 3 months') past 3 months
-      //option(value='past 6 monthsx') past 6 months
+    select.timeFilter(ng-model='timespan')
+      option(value='past-week') past week
+      option(value='past-month' selected) past month
+      option(value='past-3-months' selected) past 3 months
+      option(value='past-6-months' selected) past 6 months
+      option(value='past-year' selected) past year
+      
 
     br
     br
 
     //make a custom filter function that only searches in text
-    div.row(ng-repeat="tweetObj in tweets | orderBy : displayOptions.orderBy : displayOptions.reverse | filter : {'tweet' : searchTweets}")
-      div.tweet
-      span.name {{tweetObj.name}} 
-      span.username [{{tweetObj.username}}]: 
-      span.tweetText {{tweetObj.tweet.text}}
-      span.created_at  | {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}
-      span.rtScore [RT: {{tweetObj.rtScore}}]
-      span.fvScore [FV: {{tweetObj.fvScore}}]
-      span.fvScore [TOT: {{tweetObj.totScore}}]
+    ol
+      li.row(ng-repeat="tweetObj in tweets | orderBy : displayOptions.orderBy : displayOptions.reverse | filter : {'tweet' : searchTweets}")
+        div.tweet
+            span.name {{tweetObj.name}} 
+            span.username [{{tweetObj.username}}]: 
+            span.tweetText {{tweetObj.tweet.text}}
+            span.created_at  | {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}
+            span.rtScore [RT: {{tweetObj.rtScore}}]
+            span.fvScore [FV: {{tweetObj.fvScore}}]
+            span.fvScore [TOT: {{tweetObj.totScore}}]
       //div.span3.text-right
         //i {{tweet.due | date:'MMM d, yyyy'}}

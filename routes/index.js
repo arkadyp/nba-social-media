@@ -23,16 +23,27 @@ exports.index = function() {
 
 var stringToDate = {
   "past-week" : function(){
-    return new Date() - 7*24*60*60*1000;
-  }
+    return (new Date() - 7*24*60*60*1000);
+  },
+  "past-month" : function(){
+    return (new Date() - 4*7*24*60*60*1000);
+  },
+  "past-3-months" : function(){
+    return (new Date() - 3*4*7*24*60*60*1000);
+  },
+  "past-6-months" : function(){
+    return (new Date() - 6*4*7*24*60*60*1000);
+  },
+  "past-year" : function(){
+    return (new Date() - 12*7*24*60*60*1000);
+  },
 }
 
 exports.getData = function(Tweet, timespan, req, res){
-  var timespan = timespan || 'past-week';
+  var timespan = timespan || 'past-month';
   var date = stringToDate[timespan]();
+  console.log(date);
   Tweet.find({created_at : {'$gte' : date}}, function(error, data){
-    console.log('i am so so so so fucked');
-    console.log(data);
     res.json({data: data});
   });
 }

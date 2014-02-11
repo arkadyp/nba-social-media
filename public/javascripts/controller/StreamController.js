@@ -3,7 +3,11 @@ function StreamController($scope, $http, $timeout) {
   $scope.tweets = [];
   $scope.hashtags = {'hash' : 'hash'};
   $scope.user_mentions = {'user' : 'user'};
-  $scope.timespan = 'past-week';
+  $scope.timespan = 'past-month';
+
+  $scope.$watch('timespan', function() {
+    $scope.setTweets();
+   });
 
   var updateEntities = function(type, field, content){
     for(var i = 0; i < content.length; i++) {
@@ -14,8 +18,12 @@ function StreamController($scope, $http, $timeout) {
     }
   };
 
+  $scope.test = function(a) {
+    console.log(a);
+  }
+
   
-  $scope.setTweets = function(timeSpan){
+  $scope.setTweets = function(){
     $http.get('/tweets/' + $scope.timespan + '.json').success(function(result) {
       var tweets = result.data;
       //calculate stats separately for each username

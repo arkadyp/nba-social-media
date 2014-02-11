@@ -52,7 +52,6 @@ function TweetStreamController($scope, $http, $timeout) {
       for(var user in followers) {
         totalFollowers += followers[user];
       }
-      console.log(totalFollowers);
 
       for(var i = 0; i < tweets.length; i++) {
         tweets[i].tweet = JSON.parse(tweets[i].tweet);

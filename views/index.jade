@@ -54,8 +54,18 @@ block content
     div.Instagrams(ng-controller="InstagramStreamController", ng-init="setInstagrams()")
       h2 Instagram
 
+      input.instagramSearch(type='text' placeholder='Search Instagrams' ng-model="searchInstagram")
+      
+      //form.tweetFilter
+        //input.tweetFilter(type='radio' name='tweetFilter' value='totScore' checked ng-click='displayOptions.orderBy = "totScore"')
+        //|   Combined Score
+        //input.tweetFilter(type='radio' name='tweetFilter' value='rtScore' ng-click='displayOptions.orderBy = "rtScore"')
+        //|   Retweet Score 
+        //input.tweetFilter(type='radio' name='tweetFilter' value='fvScore' ng-click='displayOptions.orderBy = "fvScore"')
+        //|   Favored Score 
+
       ol.instagramContainer
-        li(ng-repeat="instagramObj in instagrams") 
+        li(ng-repeat="instagramObj in instagrams | filter : {'text' : searchInstagram}")
           div.instagram(style="border-top:1px solid black")
             div.names
               span.name {{instagramObj.name}} 

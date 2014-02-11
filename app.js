@@ -78,7 +78,7 @@ app.get('/instagram', function(req, res){
   });
 });
 
-app.get('/instagrams/get', function(req, res){
+app.get('/instagrams/get.json', function(req, res){
   routes.getInstagrams(InstagramDB, req, res);
 });
 

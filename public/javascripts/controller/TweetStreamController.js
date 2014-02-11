@@ -18,11 +18,6 @@ function TweetStreamController($scope, $http, $timeout) {
     }
   };
 
-  $scope.test = function(a) {
-    console.log(a);
-  }
-
-  
   $scope.setTweets = function(){
     $http.get('/tweets/' + $scope.timespan + '.json').success(function(result) {
       var tweets = result.data;

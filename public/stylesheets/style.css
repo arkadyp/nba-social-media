@@ -76,3 +76,9 @@ h1 {
   text-align: center;
 }
 
+div.pic {
+  border: 1px;
+  height: 600px;
+  width: 100%;
+}
+

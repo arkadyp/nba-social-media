@@ -7,7 +7,7 @@ block head
 
 block content
   div.container
-    h1 NBA Team Twitter/Instagram
+    h1 NBA Twitter/Instagram Dashboard
 
     div.Tweets(ng-controller="TweetStreamController", ng-init="setTweets()")
       h2 Tweets
@@ -55,7 +55,10 @@ block content
       h2 Instagram
 
       ol.instagramContainer
-        li(ng-repeat="instagramObj in instagrams") {{instagramObj}}
+        li(ng-repeat="instagramObj in instagrams") 
+          div.pic(ng-style="{'background-image':'url('+instagramObj+')'}") {{instagramObj}}
+          //div.pic(ng-style="{'background-image':'url(http://distilleryimage5.s3.amazonaws.com/3bda34528e1311e3af8f0a64691e8e35_8.jpg)'}") {{instagramObj}}
+          
 
         
           

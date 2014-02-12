@@ -10,28 +10,37 @@ block content
     h1 NBA Twitter/Instagram Dashboard
 
     div.Tweets(ng-controller="TweetStreamController", ng-init="setTweets()")
-      h2 Tweets
+      
+      div.tweetControls
+        h2 Tweets
 
-      input.tweetSearch(type='text' placeholder='Search Tweets' ng-model="searchTweets")
-      form.tweetFilter
-        input.tweetFilter(type='radio' name='tweetFilter' value='totScore' checked ng-click='displayOptions.orderBy = "totScore"')
-        |   Combined Score
-        input.tweetFilter(type='radio' name='tweetFilter' value='rtScore' ng-click='displayOptions.orderBy = "rtScore"')
-        |   Retweet Score 
-        input.tweetFilter(type='radio' name='tweetFilter' value='fvScore' ng-click='displayOptions.orderBy = "fvScore"')
-        |   Favored Score 
+        | Select Team:  
+        select.timeFilter(ng-model='team')
+          option(value='Knicks') New York Knicks
+          option(value='Lakers' selected) Los Angeles Lakers
+          option(value='Heat') Miami Heat
 
-      button.reverseFilter(ng-click='displayOptions.reverse = !displayOptions.reverse') Reverse
+        br 
 
-      br
-      | Time Filter
-      select.timeFilter(ng-model='timespan')
-        option(value='past-week') past week
-        option(value='past-month' selected) past month
-        option(value='past-3-months' selected) past 3 months
-        option(value='past-6-months' selected) past 6 months
-        option(value='past-year' selected) past year
-        
+        input.tweetSearch(type='text' placeholder='Search Tweets' ng-model="searchTweets")
+        form.tweetFilter
+          input.tweetFilter(type='radio' name='tweetFilter' value='totScore' checked ng-click='displayOptions.orderBy = "totScore"')
+          |   Combined Score
+          input.tweetFilter(type='radio' name='tweetFilter' value='rtScore' ng-click='displayOptions.orderBy = "rtScore"')
+          |   Retweet Score 
+          input.tweetFilter(type='radio' name='tweetFilter' value='fvScore' ng-click='displayOptions.orderBy = "fvScore"')
+          |   Favored Score 
+
+        button.reverseFilter(ng-click='displayOptions.reverse = !displayOptions.reverse') Reverse
+
+        br
+        | Time Filter
+        select.timeFilter(ng-model='timespan')
+          option(value='past-week') past week
+          option(value='past-month' selected) past month
+          option(value='past-3-months') past 3 months
+          option(value='past-6-months') past 6 months
+          option(value='past-year') past year
 
       br
       br
@@ -50,6 +59,7 @@ block content
               span.fvScore [FV: {{tweetObj.fvScore}}]
               span.fvScore [TOT: {{tweetObj.totScore}}]
               span.created_at {{tweetObj.created_at | date: "h:mm:a, MMM d, 'y" }}
+
 
     div.Instagrams(ng-controller="InstagramStreamController", ng-init="setInstagrams()")
       h2 Instagram

@@ -4,6 +4,7 @@ function TweetStreamController($scope, $http, $timeout) {
   $scope.hashtags = {'hash' : 'hash'};
   $scope.user_mentions = {'user' : 'user'};
   $scope.timespan = 'past-month';
+  $scope.team = 'Lakers';
 
   $scope.$watch('timespan', function() {
     $scope.setTweets();

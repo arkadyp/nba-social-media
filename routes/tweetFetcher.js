@@ -22,14 +22,14 @@ screen_names['Heat'] = {
   'chrisbosh' : 'Chris Bosh',
   'Odenized' : 'Greg Oden',
   'easyst0' : 'Michael Beasley',
-  'chr1sa‎' : 'Chris Anderson',
-  'greenRAYn20' : 'Ray Allen',
-  'mchalmers15‎': 'Mario Chalmers',
-  'PG30_MIA' : 'Norris Cole',
-  'ShaneBattier' : 'Shane Battier',
-  'ThisIsUD‎' : 'Udonis Haslem',
-  'MoneyMase‎' : 'Roger Mason Jr.',
-  'jonesforthree‎' : 'James Jones'
+  // 'chr1sa‎' : 'Chris Anderson',
+  // 'greenRAYn20' : 'Ray Allen',
+  // 'mchalmers15‎': 'Mario Chalmers',
+  // 'PG30_MIA' : 'Norris Cole',
+  // 'ShaneBattier' : 'Shane Battier',
+  // 'ThisIsUD‎' : 'Udonis Haslem',
+  // 'MoneyMase‎' : 'Roger Mason Jr.',
+  // 'jonesforthree‎' : 'James Jones'
 };
 
 screen_names['Lakers'] = {
@@ -49,30 +49,30 @@ screen_names['Lakers'] = {
 };
 
 screen_names['Knicks'] = {
-  'carmeloanthony' : 'Carmelo Anthony',
-  'TheRealJRSmith‎' : 'J.R. Smith',
-  'Amareisreal‎' : "Amar'e Stoudemire",
-  'tysonchandler‎' : 'Tyson Chandler',
-  'I_Am_Iman' : 'Iman Shumpert',
-  'AndreaBargnani‎' : 'Andrea Bargnani',
-  'MettaWorldPeace‎' : 'Metta World Peace',
-  'T_HardJR‎' : 'Tim Hardaway Jr.',
-  'RFeltonGBMS' : 'Raymond Felton',
-  'PPrigioni9‎' : 'Pablo Prigioni',
-  'KenyonMartinSr' : 'Kenyon Martin'
+  // 'carmeloanthony' : 'Carmelo Anthony',
+  // 'TheRealJRSmith‎' : 'J.R. Smith',
+  // 'Amareisreal‎' : "Amar'e Stoudemire",
+  // 'tysonchandler‎' : 'Tyson Chandler',
+  // 'I_Am_Iman' : 'Iman Shumpert',
+  // 'AndreaBargnani' : 'Andrea Bargnani',
+  // 'MettaWorldPeace‎' : 'Metta World Peace',
+  // 'T_HardJR‎' : 'Tim Hardaway Jr.',
+  // 'RFeltonGBMS' : 'Raymond Felton',
+  // 'PPrigioni9‎' : 'Pablo Prigioni',
+  // 'KenyonMartinSr' : 'Kenyon Martin'
 }
 
 exports.getTweets = function(Tweet){
   //cycle through names
-  for(var username in screen_names['Lakers']) {
+  for(var username in screen_names['Heat']) {
     //cycle though page count
-    for(var page = 11; page <= 15 ; page++) {
+    for(var page = 0; page <= 5; page++) {
       var params = {
         screen_name : username,
         count : 200,
         page : page
       };
-      exports.timelineRequest(Tweet, params, screen_names['Lakers'][username], username, 'Lakers');
+      exports.timelineRequest(Tweet, params, screen_names['Heat'][username], username, 'Heat');
     }
   }
 };

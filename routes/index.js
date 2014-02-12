@@ -28,16 +28,16 @@ var stringToDate = {
   },
 }
 
-exports.getTweets = function(TweetDB, timespan, req, res){
+exports.getTweets = function(TweetDB, timespan, team, req, res){
   var timespan = timespan || 'past-month';
   var date = stringToDate[timespan]();
-  TweetDB.find({created_at : {'$gte' : date}}, function(error, data){
+  TweetDB.find({created_at : {'$gte' : date}, team : team}, function(error, data){
     res.json({data: data});
   });
 }
 
-exports.getInstagrams = function(InstagramDB, req, res) {
-  InstagramDB.find({}, function(error, data){
+exports.getInstagrams = function(InstagramDB, team, req, res) {
+  InstagramDB.find({team: team}, function(error, data){
     res.json({data: data});
   })
 };

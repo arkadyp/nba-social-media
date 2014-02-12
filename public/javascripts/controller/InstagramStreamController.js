@@ -2,13 +2,19 @@ function InstagramStreamController($scope, $http, $timeout) {
   $scope.test = 'TESSSTING!';
   $scope.instagrams = [];
 
+  $scope.team = 'Lakers';
+
   $scope.displayOptions = {
     reverse: true,
     orderBy: 'likedScore'
   };
 
+  $scope.$watch('team', function() {
+    $scope.setInstagrams();
+   });
+
   $scope.setInstagrams = function(){
-    $http.get('/instagrams/get.json').success(function(result) {
+    $http.get('/instagrams/' + $scope.team + '.json').success(function(result) {
       var instagrams = result.data;
 
       var instagramsByUser = {};

@@ -10,6 +10,10 @@ function TweetStreamController($scope, $http, $timeout) {
     $scope.setTweets();
    });
 
+  $scope.$watch('team', function() {
+    $scope.setTweets();
+   });
+
   var updateEntities = function(type, field, content){
     for(var i = 0; i < content.length; i++) {
       if(!(content[i][field] in $scope[type])) {
@@ -20,7 +24,7 @@ function TweetStreamController($scope, $http, $timeout) {
   };
 
   $scope.setTweets = function(){
-    $http.get('/tweets/' + $scope.timespan + '.json').success(function(result) {
+    $http.get('/tweets/' + $scope.team + '/' + $scope.timespan + '.json').success(function(result) {
       var tweets = result.data;
       //calculate stats separately for each username
       //TODO: optimize for speed

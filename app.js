@@ -68,8 +68,8 @@ app.get('/twitter', function(req, res){
   res.end('fetching');
 });
 
-app.get('/tweets/:time.json', function(req, res){
-  routes.getTweets(Tweet, req.params['time'], req, res);
+app.get('/tweets/:team/:time.json', function(req, res){
+  routes.getTweets(Tweet, req.params['time'], req.params['team'], req, res);
 });
 
 app.get('/instagram', function(req, res){
@@ -78,8 +78,8 @@ app.get('/instagram', function(req, res){
   });
 });
 
-app.get('/instagrams/get.json', function(req, res){
-  routes.getInstagrams(InstagramDB, req, res);
+app.get('/instagrams/:team.json', function(req, res){
+  routes.getInstagrams(InstagramDB, req.params['team'], req, res);
 });
 
 

@@ -64,6 +64,14 @@ block content
     div.Instagrams(ng-controller="InstagramStreamController", ng-init="setInstagrams()")
       h2 Instagram
 
+      | Select Team:  
+      select.timeFilter(ng-model='team')
+        option(value='Knicks') New York Knicks
+        option(value='Lakers' selected) Los Angeles Lakers
+        option(value='Heat') Miami Heat
+
+      br
+
       input.instagramSearch(type='text' placeholder='Search Instagrams' ng-model="searchInstagram")
       
       form.tweetFilter

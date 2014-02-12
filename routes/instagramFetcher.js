@@ -4,13 +4,26 @@ var ig = require('instagram-node').instagram();
 ig.use({ access_token: '143577447.1fb234f.f9d06f9c8fa54e67bbc642d9ad867d05'});  
 
 var users = {
-  '22138451' : ['JR Smith', 'teamswish', 'Knicks'],
-  '41197961' : ['Metta World Peace', 'theronandmettashow', 'Knicks'],
-  '260001551' : ['Tyson Chandler', 'tysonchandler', 'Knicks'],
-  '15932476' : ['Iman Shumpert', 'imanshumpertthe1st', 'Knicks'],
-  '24657562' : ["Amar'e Stoudemire", 'amareisreal', 'Knicks'],
-  '7732613' : ['Carmelo Anthony', 'carmeloanthony', 'Knicks']
-}
+  // '22138451' : ['JR Smith', 'teamswish', 'Knicks'],
+  // '41197961' : ['Metta World Peace', 'theronandmettashow', 'Knicks'],
+  // '260001551' : ['Tyson Chandler', 'tysonchandler', 'Knicks'],
+  // '15932476' : ['Iman Shumpert', 'imanshumpertthe1st', 'Knicks'],
+  // '24657562' : ["Amar'e Stoudemire", 'amareisreal', 'Knicks'],
+  // '7732613' : ['Carmelo Anthony', 'carmeloanthony', 'Knicks'],
+  // '382483692' : ['Andrea Bargnani', 'andreabargnani777', 'Knicks'],
+  // '351564405' : ['Kobe Bryant', 'kobebryant', 'Lakers'],
+  // '189737007' : ['Pau Gasol', 'paugasol', 'Lakers'],
+  // '19733607' : ['Nick Young', 'swaggyp1', 'Lakers'],
+  // '15441174' : ['Jordan Hill', 'jchill27', 'Lakers'],
+  // '18646419' : ['Jordan Farmar', 'jrfarmar', 'Lakers'],
+  // '394117442' : ['Robert Sacre', 'therealsacre', 'Lakers'],
+  // '19410587' : ['Lebron James', 'kingjames', 'Heat'],
+  // '222698246' : ['Dwyane Wade', 'dwyanewade', 'Heat'],
+  // '201583216' : ['Chris Bosh', 'chrisbosh', 'Heat'],
+  // '22194064' : ['Mario Chalmers', 'mchalmers15', 'Heat'],
+  // '211890100' : ['Ray Allen', 'rayn34', 'Heat'],
+  // '350928867' : ['Norris Cole', 'n_coleworld', 'Heat']
+};
 
 var database;
 var callback;
@@ -20,12 +33,10 @@ exports.fetchInstagrams = function(InstagramDB, cb){
   database = InstagramDB;
   callback = cb;
   for(var id in users) {
-    counter = 4;
+    counter = 6;
     instragramRequest(id, users[id][0], users[id][1], users[id][2]);
   }
 }
-
-// 636466024513299368_19733607
 
 var instragramRequest = function(id, name, username, team, max_id) {
   max_id = max_id || "";
@@ -55,25 +66,23 @@ var instragramRequest = function(id, name, username, team, max_id) {
   });
 }
 
+var timestamps = {};
+
 var addInstragramToDB = function(name, username, teamname, instagram){
-  var currentInstagram = new database({
-    name : name,
-    username : username,
-    team: teamname,
-    instagram : JSON.stringify(instagram),
-    created_at : new Date(instagram.created_time * 1000)
-  });
-  currentInstagram.save();
+  var created_at = new Date(instagram.created_time * 1000)
+  if(!(JSON.stringify(created_at) in timestamps)) {
+    timestamps[JSON.stringify(created_at)] = true;
+    var currentInstagram = new database({
+      name : name,
+      username : username,
+      team: teamname,
+      instagram : JSON.stringify(instagram),
+      created_at : created_at
+    });
+    currentInstagram.save();  
+  }
+  
 }
 
 
-// ig.user_media_recent('22138451', {count: 20},function(err, medias, pagination, limit) {
-//     console.log(pagination);
-//     var image_urls = [];
-//     _.each(medias, function(media){
-//       image_urls.push(media.images.standard_resolution.url);
-//       console.log(media.images.standard_resolution.url);
-//     });
-//     console.log('call back called from instragram fetcher');
-//     cb(image_urls);
-//   });
+

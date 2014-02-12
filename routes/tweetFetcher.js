@@ -21,38 +21,52 @@ screen_names['Heat'] = {
   'DwyaneWade' : 'Dwyane Wade',
   'chrisbosh' : 'Chris Bosh',
   'Odenized' : 'Greg Oden',
-  'easyst0' : 'Michael Beasley'
-  // 'chr1sa‎' : 'Chris Anderson',
-  // 'greenRAYn20' : 'Ray Allen',
-  // 'mchalmers15‎': 'Mario Chalmers',
-  // 'PG30_MIA' : 'Norris Cole',
-  // 'ShaneBattier' : 'Shane Battier',
-  // 'ThisIsUD‎' : 'Udonis Haslem',
-  // 'MoneyMase‎' : 'Roger Mason Jr.',
-  // 'jonesforthree‎' : 'James Jones'
+  'easyst0' : 'Michael Beasley',
+  'chr1sa‎' : 'Chris Anderson',
+  'greenRAYn20' : 'Ray Allen',
+  'mchalmers15‎': 'Mario Chalmers',
+  'PG30_MIA' : 'Norris Cole',
+  'ShaneBattier' : 'Shane Battier',
+  'ThisIsUD‎' : 'Udonis Haslem',
+  'MoneyMase‎' : 'Roger Mason Jr.',
+  'jonesforthree‎' : 'James Jones'
 };
 
 screen_names['Lakers'] = {
-  'kobebryant' : 'Kobe Bryant',
-  'paugasol‎' : 'Pau Gasol',
-  'NickSwagyPYoung' : 'Nick Young',
-  'SteveNash‎' : 'Steve Nash',
-  'KButter5' : 'Kendall Marshall',
-  'XavierHenry‎' : 'Xavier Henry',
-  'RyanKelly34' : 'Ryan Kelly',
-  'SteveBlake5' : 'Steve Blake',
-  'JrFarmar' : 'Jordan Farmar',
-  'jordanchill43' : 'Jordan Hill',
-  'ChrisKaman' : 'Chris Kaman',
-  'Bobby_Sacre' : 'Robert Sacre',
-  'Jmeeks20' : 'Jodie Meeks'
+  // 'kobebryant' : 'Kobe Bryant',
+  // 'paugasol‎' : 'Pau Gasol',
+  // 'NickSwagyPYoung' : 'Nick Young',
+  // 'SteveNash‎' : 'Steve Nash',
+  // 'KButter5' : 'Kendall Marshall',
+  // 'XavierHenry‎' : 'Xavier Henry',
+  // 'RyanKelly34' : 'Ryan Kelly',
+  // 'SteveBlake5' : 'Steve Blake',
+  // 'JrFarmar' : 'Jordan Farmar',
+  // 'jordanchill43' : 'Jordan Hill',
+  // 'ChrisKaman' : 'Chris Kaman',
+  // 'Bobby_Sacre' : 'Robert Sacre',
+  // 'Jmeeks20' : 'Jodie Meeks'
 };
+
+screen_names['Knicks'] = {
+  'carmeloanthony' : 'Carmelo Anthony',
+  'TheRealJRSmith‎' : 'J.R. Smith',
+  'Amareisreal‎' : "Amar'e Stoudemire",
+  'tysonchandler‎' : 'Tyson Chandler',
+  'I_Am_Iman' : 'Iman Shumpert',
+  'AndreaBargnani‎' : 'Andrea Bargnani',
+  'MettaWorldPeace‎' : 'Metta World Peace',
+  'T_HardJR‎' : 'Tim Hardaway Jr.',
+  'RFeltonGBMS' : 'Raymond Felton',
+  'PPrigioni9‎' : 'Pablo Prigioni',
+  'KenyonMartinSr' : 'Kenyon Martin'
+}
 
 exports.getTweets = function(Tweet){
   //cycle through names
   for(var username in screen_names['Lakers']) {
     //cycle though page count
-    for(var page = 7; page <= 7 ; page++) {
+    for(var page = 11; page <= 15 ; page++) {
       var params = {
         screen_name : username,
         count : 200,
@@ -73,14 +87,19 @@ exports.timelineRequest = function(Tweet, params, name, username, teamname){
   });
 };
 
+var timestamps = {};
+
 var addTweet = function(Tweet, name, username, teamname, tweet){
-  console.log('save tweet');
-  var currentTweet = new Tweet({
-    name : name,
-    username : username,
-    team: teamname,
-    tweet : JSON.stringify(tweet),
-    created_at : new Date(tweet.created_at)
-  });
-  currentTweet.save();
+  var created_at = new Date(tweet.created_at);
+  if(!(JSON.stringify(created_at) in timestamps)) {
+    timestamps[JSON.stringify(created_at)] = true;
+    var currentTweet = new Tweet({
+      name : name,
+      username : username,
+      team: teamname,
+      tweet : JSON.stringify(tweet),
+      created_at : created_at
+    });
+    currentTweet.save();
+  }
 };

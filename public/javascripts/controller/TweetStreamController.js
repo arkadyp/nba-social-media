@@ -62,7 +62,7 @@ function TweetStreamController($scope, $http, $timeout) {
         tweets[i].rtScore = Number((tweets[i].tweet.retweet_count / tweetsByUser[tweets[i].username].rtTot * 100).toFixed(2));
         tweets[i].fvScore = Number((tweets[i].tweet.favorite_count / tweetsByUser[tweets[i].username].fvTot * 100).toFixed(2));
         var temp = (tweets[i].fvScore + tweets[i].rtScore / 2);
-        tweets[i].totScore = (temp * followers[tweets[i].username]/totalFollowers).toFixed(2);
+        tweets[i].totScore = (temp + 5*followers[tweets[i].username]/totalFollowers).toFixed(2);
       }
 
       $scope.tweets = tweets;

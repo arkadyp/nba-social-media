@@ -24,11 +24,11 @@ var Mongoose = require('mongoose');
 
 var db = Mongoose.createConnection('localhost', 'nbaTestData');
 var TweetSchema = require('./models/Tweet').TweetSchema;
-var Tweet = db.model('tweets', TweetSchema);
+var Tweet = db.model('tweets_demo', TweetSchema);
 
 var db = Mongoose.createConnection('localhost', 'nbaTestData');
 var InstagramSchema = require('./models/Instagram').InstagramSchema;
-var InstagramDB = db.model('instagram2', InstagramSchema);
+var InstagramDB = db.model('instagram_demo', InstagramSchema);
 
 ///////////////////////
 //Set up server
